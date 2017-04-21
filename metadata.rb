@@ -1,0 +1,11 @@
+name 'chef-aps'
+maintainer 'Alfresco T&A Team'
+maintainer_email 'devops@alfresco.com'
+license 'Apache 2.0'
+description 'Installs/Configures chef-aps'
+long_description 'Installs/Configures chef-aps'
+version '0.1.0'
+
+depends 'aps-proxy'
+depends 'aps-db'
+depends 'aps-core'
