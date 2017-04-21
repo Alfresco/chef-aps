@@ -28,4 +28,12 @@ suites:
   - name: default
     run_list:
       - recipe[chef-aps::default]
-    attributes:
+    attributes: {
+      "aps-core" : {
+        "version" : "1.6.0",
+        "nexus" : {
+          "username" : "<%= ENV['NEXUS_USERNAME'] %>",
+          "password" : "<%= ENV['NEXUS_PASSWORD'] %>"
+        }
+      }
+    }

@@ -20,9 +20,18 @@ platforms:
 
     driver:
       box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_centos-7.2_chef-provisionerless.box
- 
+
 
 suites:
   - name: default
     run_list:
       - recipe[chef-aps::default]
+    attributes: {
+      "aps-core" : {
+        "version" : "1.6.0",
+        "nexus" : {
+          "username" : "<%= ENV['NEXUS_USERNAME'] %>",
+          "password" : "<%= ENV['NEXUS_PASSWORD'] %>"
+        }
+      }
+    }
