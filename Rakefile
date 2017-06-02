@@ -7,30 +7,23 @@ require 'cookstyle'
 
 desc 'Runs knife cookbook test'
 task :knife do
-  sh 'bundle exec knife cookbook test cookbook -o ./ -a'
+  sh 'chef exec bundle exec knife cookbook test cookbook -o ./ -a'
 end
 
 desc 'Runs ChefSpec tests'
 task :chefspec do
-  sh 'rspec'
+  sh 'chef exec bundle exec rspec'
 end
 
 desc 'Runs foodcritic test'
 task :foodcritic do
   FoodCritic::Rake::LintTask.new
-  sh 'bundle exec foodcritic -f any .'
-end
-
-desc 'Runs rspec tests in test/unit folder'
-task :unit do
-  RSpec::Core::RakeTask.new(:unit) do |t|
-    t.pattern = 'test/unit/**/*_spec.rb'
-  end
+  sh 'chef exec bundle exec foodcritic -f any .'
 end
 
 desc 'Runs cookstyle'
 task :cookstyle do
-  sh 'bundle exec cookstyle'
+  sh 'chef exec bundle exec cookstyle'
 end
 
 desc 'Run Test Kitchen integration tests'
@@ -71,4 +64,4 @@ namespace :integration do
   end
 end
 
-task default: [:foodcritic, :knife, :unit, :chefspec, :cookstyle]
+task default: [:foodcritic, :knife, :chefspec, :cookstyle]

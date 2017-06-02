@@ -1,4 +1,5 @@
-services = %w(haproxy mysql elasticsearch)
+# services = %w(haproxy mysql elasticsearch tomcat-activiti)
+services = %w(haproxy tomcat-activiti)
 
 services.each do |service|
   describe service(service.to_s) do
