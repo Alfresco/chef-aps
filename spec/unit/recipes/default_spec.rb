@@ -6,15 +6,29 @@
 
 require 'spec_helper'
 
-describe 'chef-aps::default' do
-  context 'When all attributes are default, on an unspecified platform' do
-    let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
-      runner.converge(described_recipe)
-    end
+RSpec.describe 'aps::default' do
+  let(:chef_run) do
+    ChefSpec::SoloRunner.new(
+      platform: 'centos',
+      version: '7.2.1511',
+      file_cache_path: '/var/chef/cache'
+    ) do |node|
+    end.converge(described_recipe)
+  end
 
-    it 'converges successfully' do
-      expect { chef_run }.to_not raise_error
-    end
+  it 'converges successfully' do
+    expect { chef_run }.to_not raise_error
+  end
+
+  it 'includes the `proxy` recipe' do
+    expect(chef_run).to include_recipe('aps-proxy::default')
+  end
+
+  it 'includes the `db` recipe' do
+    expect(chef_run).to include_recipe('aps-db::default')
+  end
+
+  it 'includes the `tomcat` recipe' do
+    expect(chef_run).to include_recipe('aps-core::default')
   end
 end
