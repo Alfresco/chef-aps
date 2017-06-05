@@ -31,7 +31,6 @@ suites:
       inspec_tests:
         - name: chef-aps-inspec-tomcat
           git: https://github.com/Alfresco/chef-aps-inspec-tomcat
-          branch: 'TAA-960'
         - path: test/inspec/
 
     attributes: {
