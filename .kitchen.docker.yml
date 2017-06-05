@@ -1,4 +1,3 @@
-# When editing this file, remember that http://www.yamllint.com is your friend :-)
 ---
 driver:
   name: docker
