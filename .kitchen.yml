@@ -31,6 +31,8 @@ suites:
           git: https://github.com/Alfresco/chef-aps-inspec-tomcat
         - name: chef-aps-inspec-mysql
           git: https://github.com/Alfresco/chef-aps-inspec-mysql
+        - name: chef-aps-inspec-core
+          git: https://github.com/Alfresco/chef-aps-inspec-core
         - name: chef-aps-inspec
           path: test/inspec
     attributes: {
@@ -41,8 +43,10 @@ suites:
           "password" : "<%= ENV['NEXUS_PASSWORD'] %>"
         }
       },
-      "aps-db" : {
-        "engine" : "mysql"
+      "aps" : {
+          "db" : {
+            "engine" : "mysql"
+          }
         }
      }
   - name: aps-postgres
@@ -55,6 +59,8 @@ suites:
           git: https://github.com/Alfresco/chef-aps-inspec-tomcat
         - name: chef-aps-inspec-postgres
           git: https://github.com/Alfresco/chef-aps-inspec-postgres
+        - name: chef-aps-inspec-core
+          git: https://github.com/Alfresco/chef-aps-inspec-core
         - name: chef-aps-inspec
           path: test/inspec
     attributes: {
@@ -65,7 +71,9 @@ suites:
           "password" : "<%= ENV['NEXUS_PASSWORD'] %>"
         }
       },
-      "aps-db" : {
-        "engine" : "postgres"
+      "aps" : {
+          "db" : {
+            "engine" : "postgres"
+          }
         }
      }
