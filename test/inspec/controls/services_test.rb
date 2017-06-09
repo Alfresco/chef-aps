@@ -1,5 +1,10 @@
 # services = %w(haproxy mysql elasticsearch tomcat-activiti)
-services = %w(haproxy tomcat-activiti)
+
+components = node.content['aps']['components']
+proxy_engine = node.content['aps-proxy']['engine']
+
+services = []
+services.push('haproxy') if components.include?('proxy') && proxy_engine.to_s == 'haproxy'
 
 services.each do |service|
   describe service(service.to_s) do

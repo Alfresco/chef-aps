@@ -1,3 +1,2 @@
-default['aps']['search-engine'] = 'elasticsearch'
-default['aps']['database-engine'] = 'mysql'
-default['aps']['proxy-engine'] = 'haproxy'
+default['aps']['components'] = %w(proxy core db)
+default['aps']['db']['engine'] = 'mysql'
