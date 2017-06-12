@@ -39,6 +39,7 @@ if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
   done
 fi
 
+curl -u $MVN_CHEF_REPO_USERNAME:$MVN_CHEF_REPO_PASSWORD -o $APS_PATH/alfresco-databags.tar.gz $DATA_BAGS_URL
 tar -xvzf $APS_PATH/alfresco-databags.tar.gz -C $APS_PATH
 rm -f $APS_PATH/alfresco-databags.tar.gz
 
