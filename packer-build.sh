@@ -2,15 +2,15 @@
 
 date +"%R STARTING BUILD"
 
-ONLINE_TRIAL_PATH="/tmp/packer/online-trial"
+APS_PATH="/tmp/packer/chef-aps"
 COOKBOOK_PATHS="$APS_PATH/cookbooks"
 DATA_BAGS_PATH="$APS_PATH/data_bags"
 
 DATA_BAGS_URL="https://artifacts.alfresco.com/nexus/content/repositories/internal-releases/org/alfresco/devops/alfresco-databags/0.2.21/alfresco-databags-0.2.21.tar.gz"
 
 if [ -d $APS_PATH ]
-  then rm -rf $OAPS_PATH/*
-  else mkdir -p $OAPS_PATH
+  then rm -rf $APS_PATH/*
+  else mkdir -p $APS_PATH
 fi
 
 mkdir -p $COOKBOOK_PATHS $DATA_BAGS_PATH
@@ -45,7 +45,7 @@ rm -f $APS_PATH/alfresco-databags.tar.gz
 rm -f Berksfile.lock
 berks vendor $COOKBOOK_PATHS
 
-packer validate packer/img-trials-packer.json
+packer validate packer/img-aps-packer.json
 
-#packer build -debug packer/img-trials-packer.json | gawk '{ print strftime("%Y-%m-%d %H:%M:%S"), $0; fflush(); }'
-packer build packer/img-trials-packer.json
+#packer build -debug packer/img-aps-packer.json | gawk '{ print strftime("%Y-%m-%d %H:%M:%S"), $0; fflush(); }'
+packer build packer/img-aps-packer.json

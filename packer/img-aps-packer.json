@@ -43,7 +43,7 @@
             "vpc_id": "{{user `vpc_id`}}"
         }
     ],
-    "description": "VirtualBox vagrant for img-trials",
+    "description": "VirtualBox vagrant for img-aps",
     "min_packer_version": "0.8.5",
     "provisioners": [
         {
@@ -125,7 +125,7 @@
     ],
     "variables": {
         "access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
-        "ami_description": "Image Trials {{env `COOKBOOK_VERSION`}} - {{timestamp}}",
+        "ami_description": "Image aps {{env `COOKBOOK_VERSION`}} - {{timestamp}}",
         "ami_name": "Image APS {{env `COOKBOOK_VERSION`}} - {{timestamp}}",
         "ami_root_disk_size": "20",
         "ami_users": "179276412545",
