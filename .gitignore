@@ -27,3 +27,5 @@ packer-run
 .vscode/
 .idea/
 .project
+.bundle/*
+Berksfile.lock
