@@ -1,0 +1,118 @@
+DEPENDENCIES
+  apache_tomcat
+    git: https://github.com/Alfresco/chef-apache_tomcat.git
+    revision: d8cce28313f522da2e5d4a3dc6d145e9c967c8ef
+    tag: v0.6
+  aps
+    path: .
+    metadata: true
+  aps-appserver
+    git: https://github.com/Alfresco/chef-aps-appserver.git
+    revision: 073ed1ccf793fd3ade2c1bd9cc36ac51dbeaa549
+  aps-core
+    git: https://github.com/alfresco/chef-aps-core
+    revision: 2ee9e123fea18b5fe09c5e99749bccaaafd8c15c
+  aps-db
+    git: https://github.com/alfresco/chef-aps-db
+    revision: d39cf7c43465fd0f6c97a5acf9af6dc4ce26b8a8
+  aps-proxy
+    git: https://github.com/alfresco/chef-aps-proxy
+    revision: b10cf5c3ef2df44d478f2e22ffb03e587bc727eb
+
+GRAPH
+  7-zip (1.0.2)
+    windows (>= 1.2.2)
+  alfresco-utils (1.1.0)
+    java (>= 1.31.0)
+    yum-epel (>= 0.0.0)
+    yum-repoforge (>= 0.5.1)
+  apache_tomcat (0.5.2)
+    ark (~> 0.9)
+    java (~> 1.31)
+    poise (~> 2.3.2)
+    poise-service (~> 1.0)
+  aps (0.1.0)
+    alfresco-utils (~> 1.1.0)
+    apache_tomcat (>= 0.0.0)
+    aps-appserver (>= 0.0.0)
+    aps-core (>= 0.0.0)
+    aps-db (>= 0.0.0)
+    aps-proxy (>= 0.0.0)
+    poise-derived (~> 1.0.0)
+  aps-appserver (0.1.0)
+    alfresco-utils (~> 1.1.0)
+    apache_tomcat (>= 0.0.0)
+    poise-derived (~> 1.0.0)
+  aps-core (0.1.0)
+    alfresco-utils (~> 1.1.0)
+    apache_tomcat (>= 0.0.0)
+    aps-appserver (>= 0.0.0)
+    poise-derived (~> 1.0.0)
+  aps-db (0.1.0)
+    database (~> 6.1.1)
+    mysql (~> 7.2)
+    mysql2_chef_gem (>= 1.0.1)
+  aps-proxy (0.1.0)
+  apt (6.1.0)
+  ark (0.9.0)
+    7-zip (>= 0.0.0)
+    windows (>= 0.0.0)
+  build-essential (8.0.3)
+    mingw (>= 1.1)
+    seven_zip (>= 0.0.0)
+  compat_resource (12.19.0)
+  database (6.1.1)
+    postgresql (>= 1.0.0)
+  homebrew (4.2.0)
+  inifile_chef_gem (0.1.0)
+    build-essential (>= 0.0.0)
+  java (1.50.0)
+    apt (>= 0.0.0)
+    homebrew (>= 0.0.0)
+    windows (>= 0.0.0)
+  mariadb (1.5.1)
+    apt (>= 0.0.0)
+    build-essential (>= 0.0.0)
+    selinux_policy (~> 2.0)
+    yum (>= 0.0.0)
+    yum-epel (>= 0.0.0)
+    yum-scl (>= 0.0.0)
+  mingw (2.0.1)
+    seven_zip (>= 0.0.0)
+  mysql (7.2.0)
+    smf (>= 0.0.0)
+    yum-mysql-community (>= 0.0.0)
+  mysql2_chef_gem (1.1.0)
+    build-essential (>= 0.0.0)
+    mariadb (>= 0.0.0)
+    mysql (>= 6.0)
+  ohai (5.1.0)
+  openssl (7.1.0)
+  poise (2.3.2)
+  poise-derived (1.0.0)
+  poise-service (1.5.2)
+    poise (~> 2.0)
+  postgresql (6.1.1)
+    build-essential (>= 2.0.0)
+    compat_resource (>= 12.16.3)
+    openssl (>= 4.0)
+  rbac (1.0.3)
+  selinux_policy (2.0.1)
+    compat_resource (>= 12.16.3)
+  seven_zip (2.0.2)
+    windows (>= 1.2.2)
+  smf (2.2.8)
+    rbac (>= 1.0.1)
+  windows (3.1.0)
+    ohai (>= 4.0.0)
+  yum (5.0.1)
+  yum-epel (2.1.1)
+    compat_resource (>= 12.16.3)
+  yum-mysql-community (2.1.0)
+    compat_resource (>= 12.16.3)
+  yum-repoforge (2.0.1)
+    compat_resource (>= 12.16.3)
+    yum-epel (>= 0.0.0)
+  yum-scl (0.2.0)
+    inifile_chef_gem (>= 0.0.0)
+    yum (>= 0.0.0)

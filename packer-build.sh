@@ -1,0 +1,51 @@
+#!/bin/bash
+
+date +"%R STARTING BUILD"
+
+ONLINE_TRIAL_PATH="/tmp/packer/online-trial"
+COOKBOOK_PATHS="$APS_PATH/cookbooks"
+DATA_BAGS_PATH="$APS_PATH/data_bags"
+
+DATA_BAGS_URL="https://artifacts.alfresco.com/nexus/content/repositories/internal-releases/org/alfresco/devops/alfresco-databags/0.2.21/alfresco-databags-0.2.21.tar.gz"
+
+if [ -d $APS_PATH ]
+  then rm -rf $OAPS_PATH/*
+  else mkdir -p $OAPS_PATH
+fi
+
+mkdir -p $COOKBOOK_PATHS $DATA_BAGS_PATH
+
+export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+export DATABAGS_FOLDER_PATH=$DATA_BAGS_PATH
+export COOKBOOK_FOLDER_PATH=$COOKBOOK_PATHS
+export VPCID="vpc-bc2f9ad9"
+export AWS_REGION="us-east-1"
+export AMI_ID="ami-6d1c2007"
+export SECURITY_GROUP_IDS="sg-85540bfb"
+export SUBNET_ID="subnet-58d82f01"
+
+if [ -z "$AWS_ACCESS_KEY_ID" ]; then
+  while [ -z "$AWS_ACCESS_KEY_ID" ]; do
+    printf '%s ' 'Insert valid AWS ACCESS KEY '
+    read AWS_ACCESS_KEY_ID
+    export AWS_ACCESS_KEY_ID
+  done
+fi
+if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
+  while [ -z "$AWS_SECRET_ACCESS_KEY" ]; do
+    printf '%s ' 'Insert valid AWS SECRET KEY '
+    read -s AWS_SECRET_ACCESS_KEY
+    export AWS_SECRET_ACCESS_KEY
+  done
+fi
+
+tar -xvzf $APS_PATH/alfresco-databags.tar.gz -C $APS_PATH
+rm -f $APS_PATH/alfresco-databags.tar.gz
+
+rm -f Berksfile.lock
+berks vendor $COOKBOOK_PATHS
+
+packer validate packer/img-trials-packer.json
+
+#packer build -debug packer/img-trials-packer.json | gawk '{ print strftime("%Y-%m-%d %H:%M:%S"), $0; fflush(); }'
+packer build packer/img-trials-packer.json
