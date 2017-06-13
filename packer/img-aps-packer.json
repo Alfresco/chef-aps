@@ -98,6 +98,12 @@
                 ],
                 "snort": {
                     "start_snort": false
+                },
+                "aps-core" : {
+                    "version" : "1.6.0",
+                    "db" : {
+                        "engine" : "postgres"
+                    }
                 }
             },
             "prevent_sudo": false,
