@@ -101,6 +101,10 @@
                 },
                  "aps-core" : {
                     "version" : "1.6.0",
+                    "nexus" : {
+                        "username" : "{{ user `private_maven_repo_username`}}",
+                        "password" : "{{ user `private_maven_repo_password`}}"
+                    },
                     "activiti-app-properties" : {
                     "datasource.driver" : "org.postgresql.Driver",
                     "datasource.url" : "jdbc:postgresql://localhost:5432/process?characterEncoding=UTF-8",
@@ -147,6 +151,8 @@
         "cookbook_paths": "{{env `COOKBOOK_FOLDER_PATH`}}",
         "data_bags_path": "{{env `DATABAGS_FOLDER_PATH`}}",
         "instance_type": "m3.large",
+        "private_maven_repo_password": "{{ env `MVN_CHEF_REPO_PASSWORD`}}",
+        "private_maven_repo_username": "{{ env `MVN_CHEF_REPO_USERNAME`}}",
         "region": "{{env `AWS_REGION`}}",
         "root_delete_on_termination": "true",
         "root_disk_size": "60",

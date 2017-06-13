@@ -39,6 +39,21 @@ if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
   done
 fi
 
+if [ -z "$MVN_CHEF_REPO_USERNAME" ]; then
+  while [ -z "$MVN_CHEF_REPO_USERNAME" ]; do
+    printf '%s ' 'Insert valid maven username '
+    read MVN_CHEF_REPO_USERNAME
+    export MVN_CHEF_REPO_USERNAME
+  done
+fi
+if [ -z "$MVN_CHEF_REPO_PASSWORD" ]; then
+  while [ -z "$MVN_CHEF_REPO_PASSWORD" ]; do
+    printf '%s ' 'Insert valid maven password '
+    read -s MVN_CHEF_REPO_PASSWORD
+    export MVN_CHEF_REPO_PASSWORD
+  done
+fi
+
 curl -u $MVN_CHEF_REPO_USERNAME:$MVN_CHEF_REPO_PASSWORD -o $APS_PATH/alfresco-databags.tar.gz $DATA_BAGS_URL
 tar -xvzf $APS_PATH/alfresco-databags.tar.gz -C $APS_PATH
 rm -f $APS_PATH/alfresco-databags.tar.gz
