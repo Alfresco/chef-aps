@@ -56,7 +56,7 @@
         {
             "cookbook_paths": ["{{user `cookbook_paths`}}"],
             "data_bags_path": "{{user `data_bags_path`}}",
-            "execute_command": "cd /tmp/packer-chef-solo && ln -s cookbooks-0 cookbooks && {{if .Sudo}}sudo {{end}}chef-client --no-color -z -j {{.JsonPath}}",
+            "execute_command": "cd /tmp/packer-chef-solo && ln -s cookbooks-0 cookbooks && {{if .Sudo}}sudo {{end}}chef-client --no-color -z -j {{.JsonPath}} -l debug",
             "install_command": "{{if .Sudo}}sudo {{end}}bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v {{ user `chef_version` }}'",
             "json": {
                 "_images": {},
