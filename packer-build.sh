@@ -61,7 +61,9 @@ rm -f $APS_PATH/alfresco-databags.tar.gz
 rm -f Berksfile.lock
 berks vendor $COOKBOOK_PATHS
 
-packer validate packer/img-aps-packer.json
+packer validate packer/img-aps-postgres-packer.json
+packer validate packer/img-aps-mysql-packer.json
 
 #packer build -debug packer/img-aps-packer.json | gawk '{ print strftime("%Y-%m-%d %H:%M:%S"), $0; fflush(); }'
-packer build packer/img-aps-packer.json
+packer build packer/img-aps-postgres-packer.json
+packer build packer/img-aps-mysql-packer.json

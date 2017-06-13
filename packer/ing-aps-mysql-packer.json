@@ -1,0 +1,162 @@
+{
+    "builders": [
+        {
+            "access_key": "{{user `access_key`}}",
+            "ami_block_device_mappings": [
+                {
+                    "delete_on_termination": "{{user `root_delete_on_termination`}}",
+                    "device_name": "/dev/sda1",
+                    "volume_size": "{{user `root_disk_size`}}"
+                },
+                {
+                    "device_name": "/dev/sdb",
+                    "virtual_name": "ephemeral0"
+                },
+                {
+                    "device_name": "/dev/sdc",
+                    "virtual_name": "ephemeral1"
+                }
+            ],
+            "ami_description": "{{user `ami_description`}}",
+            "ami_name": "{{user `ami_name`}}",
+            "ami_users": "{{user `ami_users`}}",
+            "ami_virtualization_type": "{{user `ami_virtualization_type`}}",
+            "associate_public_ip_address": true,
+            "communicator": "ssh",
+            "enhanced_networking": true,
+            "instance_type": "{{user `instance_type`}}",
+            "launch_block_device_mappings": [
+                {
+                    "delete_on_termination": "true",
+                    "device_name": "/dev/sda1",
+                    "volume_size": "{{user `ami_root_disk_size`}}"
+                }
+            ],
+            "region": "{{user `region`}}",
+            "secret_key": "{{user `secret_key`}}",
+            "security_group_ids": "{{user `security_group_ids`}}",
+            "source_ami": "{{user `source_ami`}}",
+            "ssh_pty": true,
+            "ssh_username": "{{user `ssh_username`}}",
+            "subnet_id": "{{user `subnet_id`}}",
+            "type": "amazon-ebs",
+            "vpc_id": "{{user `vpc_id`}}"
+        }
+    ],
+    "description": "VirtualBox vagrant for img-aps",
+    "min_packer_version": "0.8.5",
+    "provisioners": [
+        {
+            "inline": [
+                "sudo sed -i 's/crashkernel=auto/net.ifnames=0 crashkernel=auto/g' /etc/default/grub",
+                "sudo grub2-mkconfig -o /boot/grub2/grub.cfg"
+            ],
+            "type": "shell"
+        },
+        {
+            "cookbook_paths": ["{{user `cookbook_paths`}}"],
+            "data_bags_path": "{{user `data_bags_path`}}",
+            "execute_command": "cd /tmp/packer-chef-solo && ln -s cookbooks-0 cookbooks && {{if .Sudo}}sudo {{end}}chef-client --no-color -z -j {{.JsonPath}}",
+            "install_command": "{{if .Sudo}}sudo {{end}}bash -c 'curl -L https://www.opscode.com/chef/install.sh| bash -s -- -v {{ user `chef_version` }}'",
+            "json": {
+                "_images": {},
+                "_local": {
+                    "cpus": "2",
+                    "ip": "192.168.33.61",
+                    "ram": "4096"
+                },
+                "basic": {
+                    "groups": {
+                        "sysadmin": {
+                            "gid": 2300
+                        },
+                        "wheel": {
+                            "gid": 2400
+                        }
+                    },
+                    "sudo": {
+                        "groups": [
+                            "wheel"
+                        ]
+                    }
+                },
+                "chef_client": {
+                    "source_cookbook_path": "/tmp/packer-chef-solo/cookbooks-0",
+                    "source_data_bag_path": "/tmp/packer-chef-solo/data_bags"
+                },
+                "hosts": {
+                    "host_list": {
+                        "minislaven1 minislaven1.alfresco.pri": "10.80.217.144"
+                    }
+                },
+                "name": "img-aps",
+                "nginx": {
+                    "disable_nginx_init": true
+                },
+                "run_list": [
+                    "aps::default"
+                ],
+                "snort": {
+                    "start_snort": false
+                },
+                 "aps-core" : {
+                    "version" : "1.6.0",
+                    "nexus" : {
+                        "username" : "{{ user `private_maven_repo_username`}}",
+                        "password" : "{{ user `private_maven_repo_password`}}"
+                    }
+                },
+                "aps" : {
+                    "db" : {
+                        "engine" : "mysql"
+                    }
+                }
+            },
+            "prevent_sudo": false,
+            "run_list": [
+                "aps::default"
+            ],
+            "skip_install": false,
+            "type": "chef-solo"
+        },
+        {
+            "inline": [
+                "sudo yum -y clean all",
+                "sudo find /var/log -type f -delete",
+                "sudo find /tmp -type f -delete",
+                "sudo rm -rf /root/.aws",
+                "sudo rm -fr /root/.m2",
+                "sudo systemctl stop postfix",
+                "sudo systemctl disable postfix",
+                "sudo yum -y remove php-*",
+                "sudo yum -y remove gcc-*",
+                "sudo find /root /home -name '.*history' -delete"
+            ],
+            "type": "shell"
+        }
+    ],
+    "variables": {
+        "access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+        "ami_description": "Image aps {{env `COOKBOOK_VERSION`}} - {{timestamp}}",
+        "ami_name": "Image APS {{env `COOKBOOK_VERSION`}} - {{timestamp}}",
+        "ami_root_disk_size": "20",
+        "ami_users": "179276412545",
+        "ami_virtualization_type": "hvm",
+        "chef_version": "12.19.36",
+        "cookbook_paths": "{{env `COOKBOOK_FOLDER_PATH`}}",
+        "data_bags_path": "{{env `DATABAGS_FOLDER_PATH`}}",
+        "instance_type": "m3.large",
+        "private_maven_repo_password": "{{ env `MVN_CHEF_REPO_PASSWORD`}}",
+        "private_maven_repo_username": "{{ env `MVN_CHEF_REPO_USERNAME`}}",
+        "region": "{{env `AWS_REGION`}}",
+        "root_delete_on_termination": "true",
+        "root_disk_size": "60",
+        "run_list": "aps::default",
+        "secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "security_group_ids": "{{env `SECURITY_GROUP_IDS`}}",
+        "subnet_id": "{{ env `SUBNET_ID`}}",
+        "vpc_id": "{{env `VPCID`}}",
+        "source_ami": "ami-6d1c2007",
+        "ssh_username": "centos"
+    }
+}
