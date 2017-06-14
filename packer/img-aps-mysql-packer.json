@@ -40,7 +40,7 @@
             "ssh_username": "{{user `ssh_username`}}",
             "subnet_id": "{{user `subnet_id`}}",
             "type": "amazon-ebs",
-            "shutdown_behavior" : "stop",
+            // "shutdown_behavior" : "stop",
             "vpc_id": "{{user `vpc_id`}}"
         }
     ],
