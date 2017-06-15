@@ -65,5 +65,5 @@ packer validate packer/img-aps-postgres-packer.json
 packer validate packer/img-aps-mysql-packer.json
 
 #packer build -debug packer/img-aps-packer.json | gawk '{ print strftime("%Y-%m-%d %H:%M:%S"), $0; fflush(); }'
-# packer build packer/img-aps-postgres-packer.json
-packer build -debug -on-error=ask packer/img-aps-mysql-packer.json 
+packer build packer/img-aps-mysql-packer.json
+# packer build -debug -on-error=ask packer/img-aps-mysql-packer.json 
