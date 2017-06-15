@@ -151,7 +151,7 @@
         "private_maven_repo_password": "{{ env `MVN_CHEF_REPO_PASSWORD`}}",
         "private_maven_repo_username": "{{ env `MVN_CHEF_REPO_USERNAME`}}",
         "region": "{{env `AWS_REGION`}}",
-        "root_delete_on_termination": "false",
+        "root_delete_on_termination": "true",
         "root_disk_size": "60",
         "run_list": "aps::default",
         "secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
