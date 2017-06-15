@@ -94,7 +94,8 @@
                     "disable_nginx_init": true
                 },
                 "run_list": [
-                    "aps::default"
+                    "aps::default", 
+                    "alfresco-utils::node_json"
                 ],
                 "snort": {
                     "start_snort": false
@@ -114,7 +115,8 @@
             },
             "prevent_sudo": false,
             "run_list": [
-                "aps::default"
+                "aps::default",
+                "alfresco-utils::node_json"
             ],
             "skip_install": false,
             "type": "chef-solo"

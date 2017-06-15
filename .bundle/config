@@ -1,2 +1,0 @@
----
-BUNDLE_WITHOUT: "kitchen_vagrant:kitchen_rackspace:kitchen_ec2:development"
