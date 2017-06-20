@@ -39,6 +39,10 @@
             "ssh_pty": true,
             "ssh_username": "{{user `ssh_username`}}",
             "subnet_id": "{{user `subnet_id`}}",
+            "tags": {
+                "Product": "{{user `product`}}",
+                "Version": "{{user `product_version`}}"
+            },
             "type": "amazon-ebs",
             "vpc_id": "{{user `vpc_id`}}"
         }
@@ -150,6 +154,8 @@
         "instance_type": "m3.large",
         "private_maven_repo_password": "{{ env `MVN_CHEF_REPO_PASSWORD`}}",
         "private_maven_repo_username": "{{ env `MVN_CHEF_REPO_USERNAME`}}",
+        "product": "APS",
+        "product_version": "LATEST",
         "region": "{{env `AWS_REGION`}}",
         "root_delete_on_termination": "true",
         "root_disk_size": "60",
