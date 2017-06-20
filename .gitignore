@@ -1,17 +1,32 @@
-.vagrant
-Berksfile.lock
-*~
-*#
-.#*
-\#*#
-.*.sw[a-z]
-*.un~
-
-# Bundler
+# General ignores
 Gemfile.lock
-bin/*
-.bundle/*
+tmp/
+berks-cookbooks
+.DS_Store
+nohup.out
+*.tar.gz
 
+# Avoid Nexus credentials to be pushed on github
+**/maven_repos/private.json
+**/maven_repos/internal.json
+
+# Vagrant/Kitchen/Travis ignores
+.vagrant
+.kitchen.local.yml
 .kitchen/
-.kitchen.docker.yml
-coverage/
+
+# Alfresco license ignores
+**/*.lic
+
+# Packer files
+packer.json
+packer_cache/
+vbox-output
+packer-run
+
+.vscode/
+.idea/
+.project
+.bundle/*
+Berksfile.lock
+ec2_amazon-ebs.pem
